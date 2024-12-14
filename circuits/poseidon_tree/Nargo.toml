@@ -1,0 +1,5 @@
+[package]
+name = "poseidon_tree"
+type = "lib"
+authors = ["jokerstudio"]
+compiler_version = "0.36.0"

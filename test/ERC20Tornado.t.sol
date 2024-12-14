@@ -7,7 +7,7 @@ import "../contract/Tornado.sol";
 import "../contract/utils/Poseidon.sol";
 import "./ERC20Mock.sol";
 import "forge-std/console.sol";
-import "../circuits/target/UltraVerifier.sol";
+import "../contract/UltraVerifier.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract ERC20TornadoTest is Test {

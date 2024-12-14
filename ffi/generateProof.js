@@ -1,6 +1,6 @@
 const { BarretenbergBackend, UltraHonkBackend } = require('@noir-lang/backend_barretenberg');
 const { Noir } = require('@noir-lang/noir_js');
-const circuit = require('../circuits/target/tornado.json');
+const circuit = require('../circuits/withdraw/target/withdraw.json');
 const { ethers, hexlify } = require('ethers');
 const { poseidonMerkleTree } = require('./utils/poseidonMerkleTree.js');
 const { hexToBigint, bigintToHex, leBufferToBigint } = require('./utils/bigint.js');

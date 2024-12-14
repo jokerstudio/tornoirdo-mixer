@@ -13,13 +13,13 @@
 pragma solidity ^0.8.0;
 
 import "./MerkleTreeWithHistory.sol";
-import "./utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuardTransient.sol";
 
 interface IVerifier {
     function verify(bytes calldata _proof, bytes32[] calldata _publicInputs) external view returns (bool);
 }
 
-abstract contract Tornado is MerkleTreeWithHistory, ReentrancyGuard {
+abstract contract Tornado is MerkleTreeWithHistory, ReentrancyGuardTransient {
     IVerifier public immutable verifier;
     uint256 public denomination;
 

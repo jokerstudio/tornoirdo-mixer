@@ -6,7 +6,7 @@ import "../contract/ETHTornado.sol";
 import "../contract/Tornado.sol";
 import "../contract/utils/Poseidon.sol";
 import "forge-std/console.sol";
-import "../circuits/target/UltraVerifier.sol";
+import "../contract/UltraVerifier.sol";
 
 contract ETHTornadoTest is Test {
     uint256 public constant FIELD_SIZE = 21888242871839275222246405745257275088548364400416034343698204186575808495617;
