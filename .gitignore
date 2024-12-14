@@ -1,6 +1,6 @@
 cache
 out
 .env
-circuits/target/*
+circuits/withdraw/target/*
 node_modules
 yarn.lock
