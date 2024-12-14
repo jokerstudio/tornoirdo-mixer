@@ -9,8 +9,9 @@ import "../contract/Tornado.sol";
 import "../contract/utils/Poseidon.sol";
 import "../contract/UltraVerifier.sol";
 import "./mocks/ERC20Mock.sol";
+import "./utils/ProofTestHelper.sol";
 
-contract ERC20TornadoTest is Test {
+contract ERC20TornadoTest is Test, ProofTestHelper {
     uint256 public constant FIELD_SIZE = 21888242871839275222246405745257275088548364400416034343698204186575808495617;
     ERC20Tornado public mixer;
     UltraVerifier public verifier;
@@ -152,45 +153,5 @@ contract ERC20TornadoTest is Test {
 
         vm.expectRevert(bytes("The note has been already spent"));
         mixer.withdraw(proof2,  publicInputs2[1],  publicInputs2[0], recipient, relayer, 0, 0);
-    }
-
-    function _genCommitment() internal returns (bytes32 commitment, bytes32 nullifier, bytes32 secret) {
-        string[] memory inputs = new string[](2);
-        inputs[0] = "node";
-        inputs[1] = "ffi/generateCommitment.js";
-        bytes memory result = vm.ffi(inputs);
-        (commitment, nullifier, secret) = abi.decode(result, (bytes32, bytes32, bytes32));
-    }
-
-    function _genProof(
-        bytes32 nullifier,
-        bytes32 secret,
-        bytes32[] memory leaves
-    ) internal returns (bytes memory proof, bytes32[] memory publicInputs) {
-        string[] memory inputs = new string[](4 + leaves.length);
-        inputs[0] = "node";
-        inputs[1] = "ffi/generateProof.js";
-        inputs[2] = _toHexString(secret);
-        inputs[3] = _toHexString(nullifier);
-        // leaves
-           for (uint256 i = 0; i < leaves.length; i++) {
-            inputs[4 + i] = vm.toString(leaves[i]);
-        }
-       
-        bytes memory result =  vm.ffi(inputs);
-        (proof, publicInputs) = abi.decode(result, (bytes, bytes32[]));
-    }
-
-    function _toHexString(bytes32 data) internal pure returns (string memory) {
-        bytes memory hexChars = "0123456789abcdef";
-        bytes memory result = new bytes(64); // Each byte will be represented by 2 hex characters
-
-        for (uint i = 0; i < 32; i++) {
-            uint8 byteValue = uint8(data[i]);
-            result[i * 2] = hexChars[byteValue >> 4]; // Higher nibble
-            result[i * 2 + 1] = hexChars[byteValue & 0x0f]; // Lower nibble
-        }
-
-        return string.concat("0x", string(result));
     }
 }
