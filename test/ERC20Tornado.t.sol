@@ -2,13 +2,13 @@
 pragma solidity 0.8.28;
 
 import "forge-std/Test.sol";
+import "forge-std/console.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "../contract/ERC20Tornado.sol";
 import "../contract/Tornado.sol";
 import "../contract/utils/Poseidon.sol";
-import "./ERC20Mock.sol";
-import "forge-std/console.sol";
 import "../contract/UltraVerifier.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./mocks/ERC20Mock.sol";
 
 contract ERC20TornadoTest is Test {
     uint256 public constant FIELD_SIZE = 21888242871839275222246405745257275088548364400416034343698204186575808495617;

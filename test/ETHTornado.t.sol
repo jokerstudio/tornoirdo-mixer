@@ -2,10 +2,10 @@
 pragma solidity 0.8.28;
 
 import "forge-std/Test.sol";
+import "forge-std/console.sol";
 import "../contract/ETHTornado.sol";
 import "../contract/Tornado.sol";
 import "../contract/utils/Poseidon.sol";
-import "forge-std/console.sol";
 import "../contract/UltraVerifier.sol";
 
 contract ETHTornadoTest is Test {
