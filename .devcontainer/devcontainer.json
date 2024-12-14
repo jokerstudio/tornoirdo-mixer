@@ -8,5 +8,6 @@
 	   "vscode": {
 		 "extensions": ["noir-lang.vscode-noir", "juanblanco.solidity"]
 	   }
-	 }
+	 },
+	 "postStartCommand": "yarn"
    }
