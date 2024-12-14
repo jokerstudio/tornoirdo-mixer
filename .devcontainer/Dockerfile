@@ -5,7 +5,7 @@ RUN curl -L https://raw.githubusercontent.com/noir-lang/noirup/main/install | ba
 ENV PATH="/root/.nargo/bin:$PATH"
 RUN noirup
 RUN curl -L https://raw.githubusercontent.com/AztecProtocol/aztec-packages/refs/heads/master/barretenberg/bbup/install | bash
-ENV PATH="/root/.bb/bin:$PATH"
+ENV PATH="/root/.bb:$PATH"
 RUN bbup
 RUN curl -L https://foundry.paradigm.xyz | bash
 ENV PATH="/root/.foundry/bin:$PATH"
