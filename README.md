@@ -1,4 +1,4 @@
-# Tonoirdo Mixer
+# Tornoirdo Mixer
 This project re-builds Tornado Cash for educational purposes. This project focuses on replacing Circom with Noir as the language for writing circuits. It has been rebuilt from the ground up with a modern technology stack, including ZK-friendly hash function, while retaining the original Tornado Cash workflow as much as possible.
 
 ## Why Noir ?
