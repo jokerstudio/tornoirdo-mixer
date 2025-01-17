@@ -7,10 +7,10 @@ While Circom has been widely used in many production-ready projects due to its p
 Noir is a Rust-based domain specific language (DSL) for creating and verifying zero-knowledge proofs. It’s the easiest way to write zk applications in simply and familiar syntax while retaining all the power and flexibility.
 
 ## Disclaimer
-Tonoirdo Mixer is an experimental project created for educational purposes only. This project is not intended for use in production environments, nor is it designed for real-world deployment.
+Tornoirdo Mixer is an experimental project created for educational purposes only. This project is not intended for use in production environments, nor is it designed for real-world deployment.
 
 By using this project, you acknowledge and agree that:
--	The authors and contributors of Tonoirdo Mixer are not responsible for any incidents, damages, or legal issues arising from the use, misuse, or modification of this project.
+-	The authors and contributors of Tornoirdo Mixer are not responsible for any incidents, damages, or legal issues arising from the use, misuse, or modification of this project.
 -	The code is provided “as-is,” without any warranties or guarantees of security, privacy, or functionality.
 -	This project is strictly intended for research and learning purposes. Any use of this project for illegal or unethical activities is strictly prohibited.
 
