@@ -29,7 +29,7 @@ Install [noirup](https://noir-lang.org/docs/getting_started/installation/#instal
 2. Install Nargo:
 
    ```bash
-   noirup
+   noirup -v 0.36.0 # compatible with bb 0.58.0
    ```
 
 3. Install foundryup and follow the instructions on screen. You should then have all the foundry
@@ -111,7 +111,20 @@ There are two test scripts `/test/ETHTornado.t.sol` and `/test/ERC20Tornado.t.so
    ```
    Once VS Code started, it will offer you to "Reopen in Container".
 
-### Running 
+### Compiling Noir circuits
+
+This command do these tasks for you:
+
+1. Compile circuits
+2. Generate verifier key
+3. Generate verifier Solidity smart contract
+
+   These three steps are written as bash commands in the [makefile](https://github.com/jokerstudio/tornoirdo-mixer/blob/main/makefile). Run the following to perform these steps:
+
+   ```bash
+   make
+
+### Running tests
    After building the images, now you are ready to run test within Visual Studio Code Terminal.
    ```bash
    forge test
