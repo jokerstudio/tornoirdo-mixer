@@ -1,4 +1,4 @@
-const { BarretenbergBackend, UltraHonkBackend } = require('@noir-lang/backend_barretenberg');
+import { UltraPlonkBackend } from '@aztec/bb.js';
 const { Noir } = require('@noir-lang/noir_js');
 const circuit = require('../circuits/withdraw/target/withdraw.json');
 const { ethers, hexlify } = require('ethers');
@@ -8,7 +8,7 @@ const { poseidon1, poseidon2 } = require('poseidon-lite');
 const os = require('os');
 
 async function main() {
-  const backend = new BarretenbergBackend(circuit, {threads: os.cpus().length});
+  const backend = new UltraPlonkBackend(circuit, {threads: os.cpus().length});
   const noir = new Noir(circuit);
 
   const inputs = process.argv.slice(2, process.argv.length);
