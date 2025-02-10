@@ -9,5 +9,5 @@
 		 "extensions": ["noir-lang.vscode-noir", "juanblanco.solidity"]
 	   }
 	 },
-	 "postStartCommand": "yarn"
+	 "postStartCommand": "bun install"
    }

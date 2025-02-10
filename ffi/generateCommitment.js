@@ -2,34 +2,24 @@ const { ethers } = require("ethers");
 const { poseidon2 } = require('poseidon-lite');
 const { rbigint, bigintToHex } = require("./utils/bigint.js");
 
-async function main() {
-  const FIELD_SIZE = BigInt(21888242871839275222246405745257275088548364400416034343698204186575808495617);
 
-  // 1. Generate random nullifier and secret within FIELD_SIZE
-  const nullifier = rbigint(31) % FIELD_SIZE;
-  const secret = rbigint(31) % FIELD_SIZE;
+const FIELD_SIZE = BigInt(21888242871839275222246405745257275088548364400416034343698204186575808495617);
 
-  // 2. Get commitment
-  const commitment = poseidon2([nullifier, secret]);
+// 1. Generate random nullifier and secret within FIELD_SIZE
+const nullifier = rbigint(31) % FIELD_SIZE;
+const secret = rbigint(31) % FIELD_SIZE;
 
-  // 3. Return abi encoded nullifier, secret, commitment
-  const res = ethers.AbiCoder.defaultAbiCoder().encode(
-    ["bytes32", "bytes32", "bytes32"],
-    [
-      bigintToHex(commitment), 
-      bigintToHex(nullifier),
-      bigintToHex(secret)]
-  );
+// 2. Get commitment
+const commitment = poseidon2([nullifier, secret]);
 
-  return res;
-}
+// 3. Return abi encoded nullifier, secret, commitment
+const res = ethers.AbiCoder.defaultAbiCoder().encode(
+  ["bytes32", "bytes32", "bytes32"],
+  [
+    bigintToHex(commitment), 
+    bigintToHex(nullifier),
+    bigintToHex(secret)]
+);
 
-main()
-  .then((res) => {
-    process.stdout.write(res);
-    process.exit(0);
-  })
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+process.stdout.write(res);
+process.exit(0);
