@@ -7,7 +7,7 @@ const { hexToBigint, bigintToHex, leBufferToBigint } = require('./utils/bigint.j
 const { poseidon1, poseidon2 } = require('poseidon-lite');
 const os = require('os');
 
-const backend = new UltraPlonkBackend(circuit.bytecode, {threads: 4});
+const backend = new UltraPlonkBackend(circuit.bytecode, {threads: os.cpus().length});
 const noir = new Noir(circuit);
 
 const inputs = process.argv.slice(2, process.argv.length);
