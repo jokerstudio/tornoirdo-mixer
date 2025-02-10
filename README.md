@@ -15,29 +15,32 @@ By using this project, you acknowledge and agree that:
 -	This project is strictly intended for research and learning purposes. Any use of this project for illegal or unethical activities is strictly prohibited.
 
 ## Getting started (Local machine)
-### Noir installation
+### Install tools
 follow these simple steps to work on your own machine:
 
-Install [noirup](https://noir-lang.org/docs/getting_started/installation/#installing-noirup) with
-
-1. Install [noirup](https://noir-lang.org/docs/getting_started/installation/#installing-noirup):
-
-   ```bash
-   curl -L https://raw.githubusercontent.com/noir-lang/noirup/main/install | bash
-   ```
-
-2. Install Nargo:
-
-   ```bash
-   noirup -v 1.0.0-beta.1 # compatible with bb 0.75.0
-   ```
-
-3. Install foundryup and follow the instructions on screen. You should then have all the foundry
+1. Install foundryup and follow the instructions on screen. You should then have all the foundry
    tools like `forge`, `cast`, `anvil` and `chisel`.
 
    ```bash
    curl -L https://foundry.paradigm.xyz | bash
    ```
+   then
+
+   ```bash
+   foundryup -v 0.3.0
+   ```
+
+2. Install [noirup](https://noir-lang.org/docs/getting_started/installation/#installing-noirup):
+
+   ```bash
+   curl -L https://raw.githubusercontent.com/noir-lang/noirup/main/install | bash
+   ```
+   then
+
+   ```bash
+   noirup -v 1.0.0-beta.1
+   ```
+
 
 4. Install the correct version of the
    [Barretenberg](https://github.com/AztecProtocol/aztec-packages/tree/master/barretenberg/cpp/src/barretenberg/bb#version-compatibility-with-noir)
@@ -46,14 +49,13 @@ Install [noirup](https://noir-lang.org/docs/getting_started/installation/#instal
    ```bash
    curl -L https://raw.githubusercontent.com/AztecProtocol/aztec-packages/master/barretenberg/bbup/install | bash
    ```
-
    then
 
    ```bash
    bbup -v 0.75.0 # compatible with nargo 1.0.0-beta.1
    ```
 
-### Installation
+### Install dependencies
 1. Clone this repository
    ```bash
    git clone https://github.com/jokerstudio/tornoirdo-mixer.git
