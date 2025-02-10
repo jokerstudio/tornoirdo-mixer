@@ -29,7 +29,7 @@ Install [noirup](https://noir-lang.org/docs/getting_started/installation/#instal
 2. Install Nargo:
 
    ```bash
-   noirup -v 0.36.0 # compatible with bb 0.58.0
+   noirup -v 1.0.0-beta.1 # compatible with bb 0.75.0
    ```
 
 3. Install foundryup and follow the instructions on screen. You should then have all the foundry
@@ -50,7 +50,7 @@ Install [noirup](https://noir-lang.org/docs/getting_started/installation/#instal
    then
 
    ```bash
-   bbup -v 0.58.0 # compatible with nargo 0.36.0
+   bbup -v 0.75.0 # compatible with nargo 1.0.0-beta.1
    ```
 
 ### Installation
@@ -65,7 +65,7 @@ Install [noirup](https://noir-lang.org/docs/getting_started/installation/#instal
    forge install
    ```
    ```bash
-   yarn
+   bun install
       ```
 
 ### Compiling Noir circuits
