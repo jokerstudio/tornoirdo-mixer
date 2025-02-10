@@ -9,5 +9,5 @@ ENV PATH="/root/.bb:$PATH"
 RUN bbup -v 0.75.0
 RUN curl -L https://foundry.paradigm.xyz | bash
 ENV PATH="/root/.foundry/bin:$PATH"
-RUN foundryup
+RUN foundryup -v 0.3.0
 ENTRYPOINT ["nargo"]
