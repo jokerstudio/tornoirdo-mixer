@@ -13,11 +13,12 @@
 pragma solidity ^0.8.0;
 
 import "./MerkleTreeWithHistory.sol";
+import "./HonkVerifier.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuardTransient.sol";
 
-interface IVerifier {
-    function verify(bytes calldata _proof, bytes32[] calldata _publicInputs) external view returns (bool);
-}
+// interface IVerifier {
+//     function verify(bytes calldata _proof, bytes32[] calldata _publicInputs) external view returns (bool);
+// }
 
 abstract contract Tornado is MerkleTreeWithHistory, ReentrancyGuardTransient {
     IVerifier public immutable verifier;
@@ -33,7 +34,7 @@ abstract contract Tornado is MerkleTreeWithHistory, ReentrancyGuardTransient {
     /**
      * @dev The constructor
      * @param _verifier the address of SNARK verifier for this contract
-     * @param _hasher the address of MiMC hash contract
+     * @param _hasher the address of Poseidon hash contract
      * @param _denomination transfer amount for each deposit
      * @param _merkleTreeHeight the height of deposits' Merkle Tree
      */

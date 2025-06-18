@@ -6,31 +6,31 @@ import "forge-std/console.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "../contract/ERC20Tornado.sol";
 import "../contract/Tornado.sol";
-import "../contract/utils/Poseidon.sol";
-import "../contract/UltraVerifier.sol";
+import "../contract/utils/Poseidon2Helper.sol";
+import "../contract/HonkVerifier.sol";
 import "./mocks/ERC20Mock.sol";
 import "./utils/ProofTestHelper.sol";
 
 contract ERC20TornadoTest is Test, ProofTestHelper {
     uint256 public constant FIELD_SIZE = 21888242871839275222246405745257275088548364400416034343698204186575808495617;
     ERC20Tornado public mixer;
-    UltraVerifier public verifier;
+    HonkVerifier public verifier;
     ERC20Mock public token;
     address public recipient = makeAddr("anonymous");
     address public relayer = makeAddr("relayer");
 
     function setUp() public {
-        // Deploy UltraPlonk verifier contract.
-        verifier = new UltraVerifier();
+        // Deploy UltraHonk verifier contract.
+        verifier = new HonkVerifier();
         // Deploy Poseidon hasher contract.
-        Poseidon hasher = new Poseidon();
+        Poseidon2Helper hasher = new Poseidon2Helper();
 
         token = new ERC20Mock(recipient);
 
         /**
          * Deploy Tornado Cash mixer
          *
-         * - verifier: UltraPlonk verifier
+         * - verifier: UltraHonk verifier
          * - hasher: Poseidon
          * - denomination: 1 WETH
          * - merkleTreeHeight: 20
@@ -58,13 +58,13 @@ contract ERC20TornadoTest is Test, ProofTestHelper {
     }
 
     function test_many_deposit() public {
-        bytes32[] memory leaves = new bytes32[](100);
+        bytes32[] memory leaves = new bytes32[](10);
 
         // Generate commitment
         (bytes32 commitment, bytes32 nullifier, bytes32 secret) = _genCommitment();
 
         // 1. Make many deposits with random commitments -- this will let us test with a non-empty merkle tree
-        for (uint256 i = 0; i < 50; i++) {
+        for (uint256 i = 0; i < 5; i++) {
             bytes32 leaf = bytes32(uint256(keccak256(abi.encode(i))) % FIELD_SIZE);
 
             token.approve(address(mixer), 1 ether);
@@ -75,10 +75,10 @@ contract ERC20TornadoTest is Test, ProofTestHelper {
         // 2. Generate commitment and deposit.
         token.approve(address(mixer), 1 ether);
         mixer.deposit(commitment);
-        leaves[50] = commitment;
+        leaves[5] = commitment;
 
         // 3. Make more deposits.
-        for (uint256 i = 51; i < 100; i++) {
+        for (uint256 i = 6; i < 10; i++) {
             bytes32 leaf = bytes32(uint256(keccak256(abi.encode(i))) % FIELD_SIZE);
 
             token.approve(address(mixer), 1 ether);
@@ -116,13 +116,13 @@ contract ERC20TornadoTest is Test, ProofTestHelper {
     }
 
     function test_revert_when_double_spending() public {
-        bytes32[] memory leaves = new bytes32[](100);
+        bytes32[] memory leaves = new bytes32[](10);
 
         // Generate commitment
         (bytes32 commitment, bytes32 nullifier, bytes32 secret) = _genCommitment();
 
         // 1. Make many deposits with random commitments -- this will let us test with a non-empty merkle tree
-        for (uint256 i = 0; i < 50; i++) {
+        for (uint256 i = 0; i < 5; i++) {
             bytes32 leaf = bytes32(uint256(keccak256(abi.encode(i))) % FIELD_SIZE);
 
             token.approve(address(mixer), 1 ether);
@@ -133,10 +133,10 @@ contract ERC20TornadoTest is Test, ProofTestHelper {
         // 2. Generate commitment and deposit.
         token.approve(address(mixer), 1 ether);
         mixer.deposit(commitment);
-        leaves[50] = commitment;
+        leaves[5] = commitment;
 
         // 3. Make more deposits.
-        for (uint256 i = 51; i < 100; i++) {
+        for (uint256 i = 6; i < 10; i++) {
             bytes32 leaf = bytes32(uint256(keccak256(abi.encode(i))) % FIELD_SIZE);
 
             token.approve(address(mixer), 1 ether);

@@ -1,7 +1,7 @@
 const { MerkleTree } = require("fixed-merkle-tree");
 
 const { hexToBigint } = require("./bigint.js");
-const { poseidon2 } = require('poseidon-lite');
+const { poseidon2Hash } = require("@zkpassport/poseidon2");
 
 // Constants from MerkleTreeWithHistory.sol
 const MERKLE_TREE_HEIGHT = 20;
@@ -12,7 +12,7 @@ const ZERO_VALUES = hexToBigint("0x2fe54c60d3acabf3343a35b6eba15db4821b340f76e74
 // Creates a fixed height merkle-tree with MiMC hash function (just like MerkleTreeWithHistory.sol)
 async function poseidonMerkleTree(leaves = []) {
   const poseidonHash = (left, right) =>
-    poseidon2([left, right]);
+    poseidon2Hash([left, right]);
 
   return new MerkleTree(MERKLE_TREE_HEIGHT, leaves, {
     hashFunction: poseidonHash,

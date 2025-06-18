@@ -1,5 +1,5 @@
 const { ethers } = require("ethers");
-const { poseidon2 } = require('poseidon-lite');
+const { poseidon2Hash } = require("@zkpassport/poseidon2");
 const { rbigint, bigintToHex } = require("./utils/bigint.js");
 
 
@@ -10,7 +10,7 @@ const nullifier = rbigint(31) % FIELD_SIZE;
 const secret = rbigint(31) % FIELD_SIZE;
 
 // 2. Get commitment
-const commitment = poseidon2([nullifier, secret]);
+const commitment = poseidon2Hash([nullifier, secret]);
 
 // 3. Return abi encoded nullifier, secret, commitment
 const res = ethers.AbiCoder.defaultAbiCoder().encode(

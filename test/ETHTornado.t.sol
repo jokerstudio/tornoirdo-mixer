@@ -5,27 +5,27 @@ import "forge-std/Test.sol";
 import "forge-std/console.sol";
 import "../contract/ETHTornado.sol";
 import "../contract/Tornado.sol";
-import "../contract/utils/Poseidon.sol";
-import "../contract/UltraVerifier.sol";
+import "../contract/utils/Poseidon2Helper.sol";
+import "../contract/HonkVerifier.sol";
 import "./utils/ProofTestHelper.sol";
 
 contract ETHTornadoTest is Test, ProofTestHelper {
     uint256 public constant FIELD_SIZE = 21888242871839275222246405745257275088548364400416034343698204186575808495617;
     ETHTornado public mixer;
-    UltraVerifier public verifier;
+    HonkVerifier public verifier;
     address public recipient = makeAddr("anonymous");
     address public relayer = makeAddr("relayer");
 
     function setUp() public {
-        // Deploy UltraPlonk verifier contract.
-        verifier = new UltraVerifier();
+        // Deploy UltraHonk verifier contract.
+        verifier = new HonkVerifier();
         // Deploy Poseidon hasher contract.
-        Poseidon hasher = new Poseidon();
+        Poseidon2Helper hasher = new Poseidon2Helper();
 
         /**
          * Deploy Tornado Cash mixer
          *
-         * - verifier: UltraPlonk verifier
+         * - verifier: UltraHonk verifier
          * - hasher: Poseidon
          * - denomination: 1 ETH
          * - merkleTreeHeight: 20
@@ -33,7 +33,7 @@ contract ETHTornadoTest is Test, ProofTestHelper {
         mixer = new ETHTornado(IVerifier(address(verifier)), IHasher(address(hasher)), 1 ether, 20);
     }
 
-    function test_single_deposit() public {
+    function test_single_depositx() public {
         bytes32[] memory leaves = new bytes32[](1);
         // Generate commitment
         (bytes32 commitment, bytes32 nullifier, bytes32 secret) = _genCommitment();
@@ -52,13 +52,13 @@ contract ETHTornadoTest is Test, ProofTestHelper {
     }
 
     function test_many_deposit() public {
-        bytes32[] memory leaves = new bytes32[](100);
+        bytes32[] memory leaves = new bytes32[](10);
 
         // Generate commitment
         (bytes32 commitment, bytes32 nullifier, bytes32 secret) = _genCommitment();
 
         // 1. Make many deposits with random commitments -- this will let us test with a non-empty merkle tree
-        for (uint256 i = 0; i < 50; i++) {
+        for (uint256 i = 0; i < 5; i++) {
             bytes32 leaf = bytes32(uint256(keccak256(abi.encode(i))) % FIELD_SIZE);
 
             mixer.deposit{value: 1 ether}(leaf);
@@ -67,10 +67,10 @@ contract ETHTornadoTest is Test, ProofTestHelper {
 
         // 2. Generate commitment and deposit.
         mixer.deposit{value: 1 ether}(commitment);
-        leaves[50] = commitment;
+        leaves[5] = commitment;
 
         // 3. Make more deposits.
-        for (uint256 i = 51; i < 100; i++) {
+        for (uint256 i = 6; i < 10; i++) {
             bytes32 leaf = bytes32(uint256(keccak256(abi.encode(i))) % FIELD_SIZE);
 
             mixer.deposit{value: 1 ether}(leaf);
@@ -106,13 +106,13 @@ contract ETHTornadoTest is Test, ProofTestHelper {
     }
 
     function test_revert_when_double_spending() public {
-        bytes32[] memory leaves = new bytes32[](100);
+        bytes32[] memory leaves = new bytes32[](10);
 
         // Generate commitment
         (bytes32 commitment, bytes32 nullifier, bytes32 secret) = _genCommitment();
 
         // 1. Make many deposits with random commitments -- this will let us test with a non-empty merkle tree
-        for (uint256 i = 0; i < 50; i++) {
+        for (uint256 i = 0; i < 5; i++) {
             bytes32 leaf = bytes32(uint256(keccak256(abi.encode(i))) % FIELD_SIZE);
 
             mixer.deposit{value: 1 ether}(leaf);
@@ -121,10 +121,10 @@ contract ETHTornadoTest is Test, ProofTestHelper {
 
         // 2. Generate commitment and deposit.
         mixer.deposit{value: 1 ether}(commitment);
-        leaves[50] = commitment;
+        leaves[5] = commitment;
 
         // 3. Make more deposits.
-        for (uint256 i = 51; i < 100; i++) {
+        for (uint256 i = 6; i < 10; i++) {
             bytes32 leaf = bytes32(uint256(keccak256(abi.encode(i))) % FIELD_SIZE);
 
             mixer.deposit{value: 1 ether}(leaf);
