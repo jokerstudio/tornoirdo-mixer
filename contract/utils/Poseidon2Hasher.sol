@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "poseidon2/Poseidon2.sol";
 
-contract Poseidon2Helper {
+contract Poseidon2Hasher {
     using Field for *;
     using Poseidon2Lib for *;
 

@@ -1,24 +1,9 @@
-// https://tornado.cash
-/*
- * d888888P                                           dP              a88888b.                   dP
- *    88                                              88             d8'   `88                   88
- *    88    .d8888b. 88d888b. 88d888b. .d8888b. .d888b88 .d8888b.    88        .d8888b. .d8888b. 88d888b.
- *    88    88'  `88 88'  `88 88'  `88 88'  `88 88'  `88 88'  `88    88        88'  `88 Y8ooooo. 88'  `88
- *    88    88.  .88 88       88    88 88.  .88 88.  .88 88.  .88 dP Y8.   .88 88.  .88       88 88    88
- *    dP    `88888P' dP       dP    dP `88888P8 `88888P8 `88888P' 88  Y88888P' `88888P8 `88888P' dP    dP
- * ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
- */
-
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "./MerkleTreeWithHistory.sol";
 import "./HonkVerifier.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuardTransient.sol";
-
-// interface IVerifier {
-//     function verify(bytes calldata _proof, bytes32[] calldata _publicInputs) external view returns (bool);
-// }
 
 abstract contract Tornado is MerkleTreeWithHistory, ReentrancyGuardTransient {
     IVerifier public immutable verifier;

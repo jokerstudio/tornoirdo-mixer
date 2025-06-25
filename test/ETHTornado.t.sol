@@ -5,7 +5,7 @@ import "forge-std/Test.sol";
 import "forge-std/console.sol";
 import "../contract/ETHTornado.sol";
 import "../contract/Tornado.sol";
-import "../contract/utils/Poseidon2Helper.sol";
+import "../contract/utils/Poseidon2Hasher.sol";
 import "../contract/HonkVerifier.sol";
 import "./utils/ProofTestHelper.sol";
 
@@ -19,14 +19,14 @@ contract ETHTornadoTest is Test, ProofTestHelper {
     function setUp() public {
         // Deploy UltraHonk verifier contract.
         verifier = new HonkVerifier();
-        // Deploy Poseidon hasher contract.
-        Poseidon2Helper hasher = new Poseidon2Helper();
+        // Deploy Poseidon2 hasher contract.
+        Poseidon2Hasher hasher = new Poseidon2Hasher();
 
         /**
          * Deploy Tornado Cash mixer
          *
          * - verifier: UltraHonk verifier
-         * - hasher: Poseidon
+         * - hasher: Poseidon2
          * - denomination: 1 ETH
          * - merkleTreeHeight: 20
          */
@@ -52,13 +52,13 @@ contract ETHTornadoTest is Test, ProofTestHelper {
     }
 
     function test_many_deposit() public {
-        bytes32[] memory leaves = new bytes32[](10);
+        bytes32[] memory leaves = new bytes32[](100);
 
         // Generate commitment
         (bytes32 commitment, bytes32 nullifier, bytes32 secret) = _genCommitment();
 
         // 1. Make many deposits with random commitments -- this will let us test with a non-empty merkle tree
-        for (uint256 i = 0; i < 5; i++) {
+        for (uint256 i = 0; i < 50; i++) {
             bytes32 leaf = bytes32(uint256(keccak256(abi.encode(i))) % FIELD_SIZE);
 
             mixer.deposit{value: 1 ether}(leaf);
@@ -67,10 +67,10 @@ contract ETHTornadoTest is Test, ProofTestHelper {
 
         // 2. Generate commitment and deposit.
         mixer.deposit{value: 1 ether}(commitment);
-        leaves[5] = commitment;
+        leaves[50] = commitment;
 
         // 3. Make more deposits.
-        for (uint256 i = 6; i < 10; i++) {
+        for (uint256 i = 51; i < 100; i++) {
             bytes32 leaf = bytes32(uint256(keccak256(abi.encode(i))) % FIELD_SIZE);
 
             mixer.deposit{value: 1 ether}(leaf);
@@ -106,13 +106,13 @@ contract ETHTornadoTest is Test, ProofTestHelper {
     }
 
     function test_revert_when_double_spending() public {
-        bytes32[] memory leaves = new bytes32[](10);
+        bytes32[] memory leaves = new bytes32[](100);
 
         // Generate commitment
         (bytes32 commitment, bytes32 nullifier, bytes32 secret) = _genCommitment();
 
         // 1. Make many deposits with random commitments -- this will let us test with a non-empty merkle tree
-        for (uint256 i = 0; i < 5; i++) {
+        for (uint256 i = 0; i < 50; i++) {
             bytes32 leaf = bytes32(uint256(keccak256(abi.encode(i))) % FIELD_SIZE);
 
             mixer.deposit{value: 1 ether}(leaf);
@@ -121,10 +121,10 @@ contract ETHTornadoTest is Test, ProofTestHelper {
 
         // 2. Generate commitment and deposit.
         mixer.deposit{value: 1 ether}(commitment);
-        leaves[5] = commitment;
+        leaves[50] = commitment;
 
         // 3. Make more deposits.
-        for (uint256 i = 6; i < 10; i++) {
+        for (uint256 i = 51; i < 100; i++) {
             bytes32 leaf = bytes32(uint256(keccak256(abi.encode(i))) % FIELD_SIZE);
 
             mixer.deposit{value: 1 ether}(leaf);

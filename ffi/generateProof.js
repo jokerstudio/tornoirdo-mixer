@@ -31,7 +31,7 @@ const input = {
 };
 
 const { witness } = await noir.execute(input);
-const proofData = await backend.generateProof(witness, {keccak:  true});
+const proofData = await backend.generateProof(witness, {keccakZK: true});
 const res = ethers.AbiCoder.defaultAbiCoder().encode(
   ['bytes', 'bytes32[]'],
   [hexlify(proofData.proof), proofData.publicInputs],
