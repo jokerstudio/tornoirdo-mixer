@@ -27,7 +27,7 @@ follow these simple steps to work on your own machine:
    then
 
    ```bash
-   foundryup --install 0.3.0
+   foundryup --install 1.2.3
    ```
 
 2. Install [noirup](https://noir-lang.org/docs/getting_started/installation/#installing-noirup):
@@ -38,7 +38,7 @@ follow these simple steps to work on your own machine:
    then
 
    ```bash
-   noirup -v 1.0.0-beta.7
+   noirup -v 1.0.0-beta.9
    ```
 
 
@@ -52,7 +52,7 @@ follow these simple steps to work on your own machine:
    then
 
    ```bash
-   bbup -v 0.84.0 # compatible with nargo 1.0.0-beta.7
+   bbup -v 1.2.1 # compatible with nargo 1.0.0-beta.9
    ```
 
 ### Install dependencies
@@ -125,6 +125,7 @@ This command do these tasks for you:
 
    ```bash
    make
+   ```
 
 ### Running tests
    After building the images, now you are ready to run test within Visual Studio Code Terminal.
