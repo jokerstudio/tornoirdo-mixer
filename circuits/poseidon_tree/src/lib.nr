@@ -2,11 +2,11 @@ use poseidon::poseidon2::Poseidon2;
 
 pub fn compute_merkle_root(leaf: Field, index: Field, path: [Field]) -> Field {
     let n = path.len();
-    let index_bits: [u1; 32] = index.to_le_bits();
+    let index_bits: [bool; 32] = index.to_le_bits();
     let mut current = leaf;
     for i in 0..n {
         let path_bit = index_bits[i];
-        let (hash_left, hash_right) = if path_bit != 0 {
+        let (hash_left, hash_right) = if path_bit {
             (path[i], current)
         } else {
             (current, path[i])

@@ -5,5 +5,5 @@ CIRCUIT_DIR = circuits/withdraw
 gen_verifier:
 	cd $(CIRCUIT_DIR) && \
 	nargo compile && \
-	bb write_vk --scheme ultra_honk --oracle_hash keccak -b ./target/withdraw.json -o ./target && \
-	bb write_solidity_verifier --scheme ultra_honk -o ../../contract/HonkVerifier.sol
+	bb write_vk --scheme ultra_honk --verifier_target evm -b ./target/withdraw.json -o ./target && \
+	bb write_solidity_verifier --scheme ultra_honk --verifier_target evm -o ../../contract/HonkVerifier.sol

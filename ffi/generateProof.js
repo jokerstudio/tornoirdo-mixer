@@ -1,4 +1,4 @@
-const { UltraHonkBackend } = require('@aztec/bb.js');
+const { Barretenberg, UltraHonkBackend } = require('@aztec/bb.js');
 const { Noir } = require('@noir-lang/noir_js');
 const circuit = require('../circuits/withdraw/target/withdraw.json');
 const { ethers, hexlify } = require('ethers');
@@ -7,7 +7,12 @@ const { hexToBigint, bigintToHex, leBufferToBigint } = require('./utils/bigint.j
 const { poseidon2Hash } = require("@zkpassport/poseidon2");
 const os = require('os');
 
-const backend = new UltraHonkBackend(circuit.bytecode, {threads: os.cpus().length});
+// code below just to avoid any console.log that will break vm.ffi
+const originalLog = console.log;
+console.log = () => {};
+
+const barretenbergAPI = await Barretenberg.new();
+const backend = new UltraHonkBackend(circuit.bytecode, barretenbergAPI, {threads: os.cpus().length});
 const noir = new Noir(circuit);
 
 const inputs = process.argv.slice(2, process.argv.length);
@@ -31,13 +36,13 @@ const input = {
 };
 
 const { witness } = await noir.execute(input);
-const proofData = await backend.generateProof(witness, {keccakZK: true});
+const proofData = await backend.generateProof(witness, {verifierTarget: 'evm'});
 const res = ethers.AbiCoder.defaultAbiCoder().encode(
   ['bytes', 'bytes32[]'],
   [hexlify(proofData.proof), proofData.publicInputs],
 );
 
-// const ret = await backend.verifyProof(proofData, {keccak:  true});
+// const ret = await backend.verifyProof(proofData, {verifierTarget: 'evm'});
 // console.log(ret);
 
 process.stdout.write(res);
