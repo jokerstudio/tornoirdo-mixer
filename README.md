@@ -27,7 +27,7 @@ follow these simple steps to work on your own machine:
    then
 
    ```bash
-   foundryup --install 1.2.3
+   foundryup --install 1.8.1
    ```
 
 2. Install [noirup](https://noir-lang.org/docs/getting_started/installation/#installing-noirup):
@@ -38,7 +38,7 @@ follow these simple steps to work on your own machine:
    then
 
    ```bash
-   noirup -v 1.0.0-beta.9
+   noirup -v 1.0.0-beta.21
    ```
 
 
@@ -52,7 +52,7 @@ follow these simple steps to work on your own machine:
    then
 
    ```bash
-   bbup -v 1.2.1 # compatible with nargo 1.0.0-beta.9
+   bbup -v 5.0.0-nightly.20260324 # compatible with nargo 1.0.0-beta.21
    ```
 
 ### Install dependencies
