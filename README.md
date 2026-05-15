@@ -27,7 +27,7 @@ follow these simple steps to work on your own machine:
    then
 
    ```bash
-   foundryup --install 1.8.1
+   foundryup --install 1.8.3
    ```
 
 2. Install [noirup](https://noir-lang.org/docs/getting_started/installation/#installing-noirup):

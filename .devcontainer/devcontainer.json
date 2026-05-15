@@ -6,7 +6,7 @@
 	 },
 	 "customizations": {
 	   "vscode": {
-		 "extensions": ["noir-lang.vscode-noir", "juanblanco.solidity"]
+		 "extensions": ["noir-lang.vscode-noir", "nomicfoundation.hardhat-solidity"]
 	   }
 	 },
 	 "postStartCommand": "bun install"

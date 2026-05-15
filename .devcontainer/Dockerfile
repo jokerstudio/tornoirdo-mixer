@@ -30,19 +30,19 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH="/root/.cargo/bin:$PATH"
 
 # Install Foundry
-RUN curl -L https://foundry.paradigm.xyz | bash && \
-    ~/.foundry/bin/foundryup
+RUN curl -L https://foundry.paradigm.xyz | bash
 ENV PATH="/root/.foundry/bin:$PATH"
+RUN foundryup
 
 # Install Noir
 RUN curl -L https://raw.githubusercontent.com/noir-lang/noirup/main/install | bash
 ENV PATH="/root/.nargo/bin:$PATH"
-RUN noirup -v 1.0.0-beta.9
+RUN noirup -v 1.0.0-beta.21
 
 # Install bb
-RUN curl -L https://raw.githubusercontent.com/AztecProtocol/aztec-packages/refs/heads/master/barretenberg/bbup/install | bash
+RUN curl -L https://raw.githubusercontent.com/AztecProtocol/aztec-packages/master/barretenberg/bbup/install | bash
 ENV PATH="/root/.bb:$PATH"
-RUN bbup -v 1.2.1
+RUN bbup -v 5.0.0-nightly.20260324
 
 # Install Bun
 RUN curl -fsSL https://bun.sh/install | bash
