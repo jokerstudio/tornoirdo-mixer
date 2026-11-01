@@ -37,12 +37,12 @@ RUN foundryup
 # Install Noir
 RUN curl -L https://raw.githubusercontent.com/noir-lang/noirup/main/install | bash
 ENV PATH="/root/.nargo/bin:$PATH"
-RUN noirup -v 1.0.0-beta.21
+RUN noirup -v 1.0.0
 
 # Install bb
 RUN curl -L https://raw.githubusercontent.com/AztecProtocol/aztec-packages/master/barretenberg/bbup/install | bash
 ENV PATH="/root/.bb:$PATH"
-RUN bbup -v 5.0.0-nightly.20260324
+RUN bbup -v 5.3.0
 
 # Install Bun
 RUN curl -fsSL https://bun.sh/install | bash

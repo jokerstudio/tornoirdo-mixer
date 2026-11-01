@@ -38,7 +38,7 @@ follow these simple steps to work on your own machine:
    then
 
    ```bash
-   noirup -v 1.0.0-beta.21
+   noirup -v 1.0.0
    ```
 
 
@@ -52,7 +52,7 @@ follow these simple steps to work on your own machine:
    then
 
    ```bash
-   bbup -v 5.0.0-nightly.20260324 # compatible with nargo 1.0.0-beta.21
+   bbup -v 5.3.0 # compatible with nargo 1.0.0
    ```
 
 ### Install dependencies
